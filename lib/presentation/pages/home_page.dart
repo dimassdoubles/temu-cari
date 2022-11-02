@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import '../../shared/styles/colors.dart';
 import '../../shared/styles/text_styles.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,6 +33,57 @@ class HomePage extends StatelessWidget {
           ),
           const SizedBox(
             height: 32,
+          ),
+          Expanded(
+            child: DefaultTabController(
+              length: 4,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: TabBar(
+                      indicatorColor: purple,
+                      labelColor: purple,
+                      labelStyle: TextStyle(fontWeight: bold),
+                      unselectedLabelColor: darkGrey,
+                      unselectedLabelStyle: TextStyle(fontWeight: regular),
+                      tabs: const [
+                        Tab(
+                          text: "Submit",
+                        ),
+                        Tab(
+                          text: "Proses",
+                        ),
+                        Tab(
+                          text: "Pencocokan",
+                        ),
+                        Tab(
+                          text: "Selesai",
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Expanded(
+                    child: TabBarView(
+                      children: [
+                        Center(
+                          child: Text('Submit'),
+                        ),
+                        Center(
+                          child: Text('Proses'),
+                        ),
+                        Center(
+                          child: Text('Pencocokan'),
+                        ),
+                        Center(
+                          child: Text('Selesai'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
@@ -55,9 +111,6 @@ class Header extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              children: [],
-            ),
             SafeArea(
               child: Text(
                 'Hello,',
