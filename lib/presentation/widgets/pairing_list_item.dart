@@ -9,6 +9,7 @@ class PairingListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(right: 32, left: 32, bottom: 16),
+      height: 72,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(25),
