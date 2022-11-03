@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:temu_cari/shared/routes.dart';
 
 import '../../shared/styles/colors.dart';
 import '../../shared/styles/text_styles.dart';
@@ -64,7 +65,9 @@ class Header extends StatelessWidget {
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, finderFormPage);
+                    },
                     child: const Text('Temuan'),
                   ),
                 ),
@@ -80,7 +83,9 @@ class Header extends StatelessWidget {
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, seekerFormPage);
+                    },
                     child: Text(
                       'Kehilangan',
                       style: TextStyle(
