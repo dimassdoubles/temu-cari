@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../submit_list_item.dart';
+import '../base_list_item.dart';
 
 class ProcessScreen extends StatelessWidget {
   const ProcessScreen({
@@ -11,12 +11,12 @@ class ProcessScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: const [
-        SubmitListItem(),
-        SubmitListItem(),
-        SubmitListItem(),
-        SubmitListItem(),
-        SubmitListItem(),
-        SubmitListItem(),
+        BaseListItem(),
+        BaseListItem(),
+        BaseListItem(),
+        BaseListItem(),
+        BaseListItem(),
+        BaseListItem(),
       ],
     );
   }

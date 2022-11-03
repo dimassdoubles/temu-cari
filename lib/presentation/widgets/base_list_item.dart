@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class PairingListItem extends StatelessWidget {
-  const PairingListItem({
+class BaseListItem extends StatelessWidget {
+  const BaseListItem({
     Key? key,
   }) : super(key: key);
 
@@ -35,13 +35,6 @@ class PairingListItem extends StatelessWidget {
             ),
             const Text('Sekitar kantin Fisip'),
           ],
-        ),
-        trailing: IconButton(
-          icon: Image.asset('assets/wa-icon.png'),
-          onPressed: () {
-            // ignore: avoid_print
-            print("Click Wa");
-          },
         ),
       ),
     );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class SubmitListItem extends StatelessWidget {
-  const SubmitListItem({
+class SeekerPairingListItem extends StatelessWidget {
+  const SeekerPairingListItem({
     Key? key,
   }) : super(key: key);
 
@@ -35,6 +35,13 @@ class SubmitListItem extends StatelessWidget {
             ),
             const Text('Sekitar kantin Fisip'),
           ],
+        ),
+        trailing: IconButton(
+          icon: Image.asset('assets/wa-icon.png'),
+          onPressed: () {
+            // ignore: avoid_print
+            print("Click Wa");
+          },
         ),
       ),
     );
