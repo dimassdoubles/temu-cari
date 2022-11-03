@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../shared/styles/colors.dart';
 import '../../shared/styles/text_styles.dart';
+import '../widgets/header.dart';
+import '../widgets/screens/pairing_screen.dart';
+import '../widgets/screens/prosess_screen.dart';
+import '../widgets/screens/submit_screen.dart';
+import '../widgets/tab_bar_title.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -38,43 +43,14 @@ class _HomePageState extends State<HomePage> {
             child: DefaultTabController(
               length: 4,
               child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: TabBar(
-                      indicatorColor: purple,
-                      labelColor: purple,
-                      labelStyle: TextStyle(fontWeight: bold),
-                      unselectedLabelColor: darkGrey,
-                      unselectedLabelStyle: TextStyle(fontWeight: regular),
-                      tabs: const [
-                        Tab(
-                          text: "Submit",
-                        ),
-                        Tab(
-                          text: "Proses",
-                        ),
-                        Tab(
-                          text: "Pencocokan",
-                        ),
-                        Tab(
-                          text: "Selesai",
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Expanded(
+                children: const [
+                  TabBarTitle(),
+                  Expanded(
                     child: TabBarView(
                       children: [
-                        Center(
-                          child: Text('Submit'),
-                        ),
-                        Center(
-                          child: Text('Proses'),
-                        ),
-                        Center(
-                          child: Text('Pencocokan'),
-                        ),
+                        SubmitScreen(),
+                        ProcessScreen(),
+                        PairingScreen(),
                         Center(
                           child: Text('Selesai'),
                         ),
@@ -86,101 +62,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class Header extends StatelessWidget {
-  const Header({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: purple,
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(25),
-          bottomRight: Radius.circular(25),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SafeArea(
-              child: Text(
-                'Hello,',
-                style: TextStyle(
-                  color: lightGrey,
-                  fontSize: 24,
-                  fontWeight: bold,
-                ),
-              ),
-            ),
-            Text(
-              'Melody Rindu',
-              style: TextStyle(
-                color: lightGrey,
-                fontSize: 24,
-                fontWeight: bold,
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            Text(
-              'Ingin melaporkan apa hari ini?',
-              style: TextStyle(
-                color: grey,
-              ),
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: orange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: const Text('Temuan'),
-                  ),
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      backgroundColor: lightGrey,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: Text(
-                      'Kehilangan',
-                      style: TextStyle(
-                        color: orange,
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
       ),
     );
   }
