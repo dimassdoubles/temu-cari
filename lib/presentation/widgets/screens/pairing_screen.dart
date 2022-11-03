@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:temu_cari/shared/styles/colors.dart';
 
 import '../pairing_list_item.dart';
