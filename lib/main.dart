@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:temu_cari/injection_container.dart';
 
 import 'shared/routes.dart' as route;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await injectionSetup();
   runApp(const MyApp());
 }
 

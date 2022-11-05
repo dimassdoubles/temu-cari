@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "720073597078",
+    "project_id": "temu-cari",
+    "storage_bucket": "temu-cari.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720073597078:android:dd5c3f9242c14ca209a2b7",
+        "android_client_info": {
+          "package_name": "com.example.temu_cari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720073597078-b5l3sptab59olrk5knouavuso7s9eqlc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0C6JPvUM1HI-kPY0z532g-O0Bx0h6G40"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720073597078-b5l3sptab59olrk5knouavuso7s9eqlc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

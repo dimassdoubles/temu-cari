@@ -1,0 +1,1 @@
+class FirebaseGetReportException implements Exception {}
