@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
+import 'package:temu_cari/data/data_sources/find_report_data_source/remote_data_source.dart';
 import 'package:temu_cari/data/data_sources/seek_report_data_source/remote_data_source.dart';
+import 'package:temu_cari/data/repositories/find_report_repository_impl.dart';
 import 'package:temu_cari/data/repositories/seek_report_repository_impl.dart';
+import 'package:temu_cari/domain/repositories/find_report_repository.dart';
 import 'package:temu_cari/domain/repositories/seek_report_repository.dart';
+import 'package:temu_cari/domain/usecases/get_find_reports.dart';
 import 'package:temu_cari/domain/usecases/get_seek_reports.dart';
 
 import 'firebase_options.dart';
@@ -22,5 +26,17 @@ Future<void> injectionSetup() async {
   );
   getIt.registerLazySingleton<GetSeekReports>(
     () => GetSeekReports(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<FindReportRemoteDataSource>(
+    () => FirebaseFindReportDataSource(firestore),
+  );
+
+  getIt.registerLazySingleton<FindReportRepository>(
+    () => FindReportRepositoryImpl(remoteDataSource: getIt()),
+  );
+
+  getIt.registerLazySingleton<GetFindReports>(
+    () => GetFindReports(repository: getIt()),
   );
 }
