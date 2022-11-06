@@ -14,6 +14,7 @@ import 'package:temu_cari/domain/repositories/seek_report_repository.dart';
 import 'package:temu_cari/domain/repositories/user_repository.dart';
 import 'package:temu_cari/domain/usecases/get_find_reports.dart';
 import 'package:temu_cari/domain/usecases/get_seek_reports.dart';
+import 'package:temu_cari/domain/usecases/is_sign_in.dart';
 import 'package:temu_cari/domain/usecases/sign_in_with_google.dart';
 
 import 'firebase_options.dart';
@@ -65,5 +66,9 @@ Future<void> injectionSetup() async {
 
   getIt.registerLazySingleton<SignInWithGoogle>(
     () => SignInWithGoogle(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<IsSignIn>(
+    () => IsSignIn(repository: getIt()),
   );
 }
