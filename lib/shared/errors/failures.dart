@@ -6,3 +6,8 @@ class FirebaseFailure extends Failure {
   @override
   List<Object?> get props => [];
 }
+
+class FirebaseGetUserFailure extends Failure {
+  @override
+  List<Object?> get props => [];
+}
