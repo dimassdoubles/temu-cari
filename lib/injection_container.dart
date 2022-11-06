@@ -11,6 +11,7 @@ import 'package:temu_cari/data/repositories/seek_report_repository_impl.dart';
 import 'package:temu_cari/data/repositories/user_repository_impl.dart';
 import 'package:temu_cari/domain/repositories/find_report_repository.dart';
 import 'package:temu_cari/domain/repositories/seek_report_repository.dart';
+import 'package:temu_cari/domain/repositories/sign_out.dart';
 import 'package:temu_cari/domain/repositories/user_repository.dart';
 import 'package:temu_cari/domain/usecases/get_find_reports.dart';
 import 'package:temu_cari/domain/usecases/get_seek_reports.dart';
@@ -70,5 +71,9 @@ Future<void> injectionSetup() async {
 
   getIt.registerLazySingleton<IsSignIn>(
     () => IsSignIn(repository: getIt()),
+  );
+
+  getIt.registerLazySingleton<SignOut>(
+    () => SignOut(repository: getIt()),
   );
 }
