@@ -5,7 +5,7 @@ import '../../../shared/errors/exceptions.dart';
 
 abstract class FindReportRemoteDataSource {
   Future<List<FindReport>> getReport();
-  Future<void> addReport(FindReport report);
+  Future<void> pushReport(FindReport report);
 }
 
 class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
@@ -41,7 +41,7 @@ class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
   }
 
   @override
-  Future<void> addReport(FindReport report) async {
+  Future<void> pushReport(FindReport report) async {
     WriteBatch batch = firestore.batch();
     CollectionReference collectionReference =
         firestore.collection(collectionName);

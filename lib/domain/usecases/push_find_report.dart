@@ -8,6 +8,6 @@ class PushFindReport {
   PushFindReport({required this.repository});
 
   Future<Either<Failure, void>> call(FindReport report) async {
-    return await repository.addReport(report);
+    return await repository.pushReport(report);
   }
 }

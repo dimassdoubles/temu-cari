@@ -5,5 +5,5 @@ import '../../shared/errors/failures.dart';
 
 abstract class FindReportRepository {
   Future<Either<Failure, List<FindReport>>> getReport();
-  Future<Either<Failure, void>> addReport(FindReport report);
+  Future<Either<Failure, void>> pushReport(FindReport report);
 }

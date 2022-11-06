@@ -22,9 +22,9 @@ class FindReportRepositoryImpl extends FindReportRepository {
   }
 
   @override
-  Future<Either<Failure, void>> addReport(FindReport report) async {
+  Future<Either<Failure, void>> pushReport(FindReport report) async {
     try {
-      remoteDataSource.addReport(report);
+      remoteDataSource.pushReport(report);
       return const Right(null);
     } catch (error) {
       return Left(FirebaseFailure());
