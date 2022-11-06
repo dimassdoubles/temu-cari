@@ -6,11 +6,11 @@ class SeekReport extends Equatable {
   String status;
 
   SeekReport({
-    required String id,
     required String author,
     required String location,
     required String characteristic,
     required String item,
+    String id = "",
     String pair = "",
     this.status = "submit",
   })  : _id = id,

@@ -20,4 +20,14 @@ class SeekReportRepositoryImpl extends SeekReportRepository {
       return Left(FirebaseFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> pushReport(SeekReport report) async {
+    try {
+      await remoteDataSource.pushReport(report);
+      return const Right(null);
+    } catch (error) {
+      return Left(FirebaseFailure());
+    }
+  }
 }

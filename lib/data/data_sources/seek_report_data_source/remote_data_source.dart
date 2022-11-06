@@ -5,6 +5,7 @@ import '../../../shared/errors/exceptions.dart';
 
 abstract class SeekReportRemoteDataSource {
   Future<List<SeekReport>> getReport();
+  Future<void> pushReport(SeekReport report);
 }
 
 class FirebaseSeekReportDataSource extends SeekReportRemoteDataSource {
@@ -37,5 +38,45 @@ class FirebaseSeekReportDataSource extends SeekReportRemoteDataSource {
     } catch (error) {
       throw FirebaseGetReportException();
     }
+  }
+
+  @override
+  Future<void> pushReport(SeekReport report) async {
+    WriteBatch batch = firestore.batch();
+    CollectionReference collectionReference =
+        firestore.collection(collectionName);
+
+    // push new report
+    if (report.id == "") {
+      batch.set(
+        collectionReference.doc(),
+        {
+          "author": report.author,
+          "item": report.item,
+          "location": report.location,
+          "pair": report.pair,
+          "characteristic": report.characteristic,
+          "status": report.status,
+          "created": FieldValue.serverTimestamp(),
+        },
+      );
+    }
+    // update report
+    else {
+      batch.set(
+        collectionReference.doc(report.id),
+        {
+          "author": report.author,
+          "item": report.item,
+          "location": report.location,
+          "pair": report.pair,
+          "characteristic": report.characteristic,
+          "status": report.status,
+          "created": FieldValue.serverTimestamp(),
+        },
+      );
+    }
+
+    batch.commit();
   }
 }

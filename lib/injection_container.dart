@@ -17,6 +17,7 @@ import 'package:temu_cari/domain/usecases/push_find_report.dart';
 import 'package:temu_cari/domain/usecases/get_find_reports.dart';
 import 'package:temu_cari/domain/usecases/get_seek_reports.dart';
 import 'package:temu_cari/domain/usecases/is_sign_in.dart';
+import 'package:temu_cari/domain/usecases/push_seek_report.dart';
 import 'package:temu_cari/domain/usecases/sign_in_with_google.dart';
 
 import 'firebase_options.dart';
@@ -51,6 +52,10 @@ Future<void> injectionSetup() async {
 
   getIt.registerLazySingleton<PushFindReport>(
       () => PushFindReport(repository: getIt()));
+
+  getIt.registerLazySingleton<PushSeekReport>(
+    () => PushSeekReport(repository: getIt()),
+  );
 
   // login
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
