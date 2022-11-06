@@ -45,6 +45,8 @@ dependencies:
   firebase_auth: ^4.1.1
   google_sign_in: ^5.4.2
   font_awesome_flutter: ^10.2.1
+  flutter_bloc: ^8.1.1
+  bloc: ^8.1.0
 
 dev_dependencies:
   flutter_test:

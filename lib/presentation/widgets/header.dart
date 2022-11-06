@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temu_cari/injection_container.dart';
+import 'package:temu_cari/presentation/blocs/auth_bloc/auth_bloc.dart';
+import 'package:temu_cari/presentation/blocs/auth_bloc/auth_event.dart';
+import 'package:temu_cari/presentation/blocs/auth_bloc/auth_state.dart';
 import 'package:temu_cari/shared/routes.dart';
 
 import '../../shared/styles/colors.dart';
@@ -11,6 +16,7 @@ class Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authBloc = getIt<AuthBloc>();
     return Container(
       decoration: BoxDecoration(
         color: purple,
@@ -37,7 +43,9 @@ class Header extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      authBloc.add(LoggedOut());
+                    },
                     icon: const Icon(
                       Icons.logout_rounded,
                       color: Colors.white,
@@ -46,13 +54,25 @@ class Header extends StatelessWidget {
                 ],
               ),
             ),
-            Text(
-              'Melody Rindu',
-              style: TextStyle(
-                color: lightGrey,
-                fontSize: 24,
-                fontWeight: bold,
-              ),
+            BlocBuilder(
+              bloc: authBloc,
+              builder: (context, state) => (state is Authenticated)
+                  ? Text(
+                      state.user.name!,
+                      style: TextStyle(
+                        color: lightGrey,
+                        fontSize: 24,
+                        fontWeight: bold,
+                      ),
+                    )
+                  : Text(
+                      'No Name',
+                      style: TextStyle(
+                        color: lightGrey,
+                        fontSize: 24,
+                        fontWeight: bold,
+                      ),
+                    ),
             ),
             const SizedBox(
               height: 16,
