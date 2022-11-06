@@ -46,7 +46,10 @@ class SeekerFormPage extends StatelessWidget {
               child: const SizedBox(
                 width: double.infinity,
                 child: Center(
-                  child: Text('Tambah Foto (Opsionial)'),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: Text('Tambah Foto (Opsionial)'),
+                  ),
                 ),
               ),
             ),
@@ -65,7 +68,10 @@ class SeekerFormPage extends StatelessWidget {
                 child: const SizedBox(
                   width: double.infinity,
                   child: Center(
-                    child: Text('Submit'),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Text('Submit'),
+                    ),
                   ),
                 )),
           ],

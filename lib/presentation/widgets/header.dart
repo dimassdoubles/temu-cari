@@ -25,13 +25,25 @@ class Header extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SafeArea(
-              child: Text(
-                'Hello,',
-                style: TextStyle(
-                  color: lightGrey,
-                  fontSize: 24,
-                  fontWeight: bold,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Hello,',
+                    style: TextStyle(
+                      color: lightGrey,
+                      fontSize: 24,
+                      fontWeight: bold,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.logout_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
               ),
             ),
             Text(
@@ -68,7 +80,10 @@ class Header extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, finderFormPage);
                     },
-                    child: const Text('Temuan'),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Text('Temuan'),
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -86,10 +101,13 @@ class Header extends StatelessWidget {
                     onPressed: () {
                       Navigator.pushNamed(context, seekerFormPage);
                     },
-                    child: Text(
-                      'Kehilangan',
-                      style: TextStyle(
-                        color: orange,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      child: Text(
+                        'Kehilangan',
+                        style: TextStyle(
+                          color: orange,
+                        ),
                       ),
                     ),
                   ),
