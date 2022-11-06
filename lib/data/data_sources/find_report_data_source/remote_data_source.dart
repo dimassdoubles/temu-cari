@@ -45,18 +45,37 @@ class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
     WriteBatch batch = firestore.batch();
     CollectionReference collectionReference =
         firestore.collection(collectionName);
-    batch.set(
-      collectionReference.doc(),
-      {
-        "author": report.author,
-        "item": report.item,
-        "location": report.location,
-        "pair": report.pair,
-        "phone": report.phone,
-        "status": report.status,
-        "created": FieldValue.serverTimestamp(),
-      },
-    );
+
+    // push new report
+    if (report.id == "") {
+      batch.set(
+        collectionReference.doc(),
+        {
+          "author": report.author,
+          "item": report.item,
+          "location": report.location,
+          "pair": report.pair,
+          "phone": report.phone,
+          "status": report.status,
+          "created": FieldValue.serverTimestamp(),
+        },
+      );
+    }
+    // update report
+    else {
+      batch.set(
+        collectionReference.doc(report.id),
+        {
+          "author": report.author,
+          "item": report.item,
+          "location": report.location,
+          "pair": report.pair,
+          "phone": report.phone,
+          "status": report.status,
+          "created": FieldValue.serverTimestamp(),
+        },
+      );
+    }
 
     batch.commit();
   }

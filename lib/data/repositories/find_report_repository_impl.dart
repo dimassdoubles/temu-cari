@@ -26,7 +26,7 @@ class FindReportRepositoryImpl extends FindReportRepository {
     try {
       remoteDataSource.addReport(report);
       return const Right(null);
-    } on FirebaseAddReportException {
+    } catch (error) {
       return Left(FirebaseFailure());
     }
   }
