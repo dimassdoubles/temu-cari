@@ -20,4 +20,14 @@ class FindReportRepositoryImpl extends FindReportRepository {
       return Left(FirebaseFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, void>> addReport(FindReport report) async {
+    try {
+      remoteDataSource.addReport(report);
+      return const Right(null);
+    } on FirebaseAddReportException {
+      return Left(FirebaseFailure());
+    }
+  }
 }

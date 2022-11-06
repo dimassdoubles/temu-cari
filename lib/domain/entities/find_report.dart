@@ -6,11 +6,11 @@ class FindReport extends Equatable {
   String status;
 
   FindReport({
-    required String id,
     required String author,
     required String location,
     required String phone,
     required String item,
+    String id = "",
     String pair = "",
     this.status = "submit",
   })  : _id = id,

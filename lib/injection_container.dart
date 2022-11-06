@@ -13,6 +13,7 @@ import 'package:temu_cari/domain/repositories/find_report_repository.dart';
 import 'package:temu_cari/domain/repositories/seek_report_repository.dart';
 import 'package:temu_cari/domain/repositories/sign_out.dart';
 import 'package:temu_cari/domain/repositories/user_repository.dart';
+import 'package:temu_cari/domain/usecases/push_find_report.dart';
 import 'package:temu_cari/domain/usecases/get_find_reports.dart';
 import 'package:temu_cari/domain/usecases/get_seek_reports.dart';
 import 'package:temu_cari/domain/usecases/is_sign_in.dart';
@@ -47,6 +48,9 @@ Future<void> injectionSetup() async {
   getIt.registerLazySingleton<GetFindReports>(
     () => GetFindReports(repository: getIt()),
   );
+
+  getIt.registerLazySingleton<PushFindReport>(
+      () => PushFindReport(repository: getIt()));
 
   // login
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;

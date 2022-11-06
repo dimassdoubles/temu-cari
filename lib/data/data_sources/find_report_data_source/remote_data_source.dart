@@ -5,6 +5,7 @@ import '../../../shared/errors/exceptions.dart';
 
 abstract class FindReportRemoteDataSource {
   Future<List<FindReport>> getReport();
+  Future<void> addReport(FindReport report);
 }
 
 class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
@@ -37,5 +38,26 @@ class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
     } catch (error) {
       throw FirebaseGetReportException();
     }
+  }
+
+  @override
+  Future<void> addReport(FindReport report) async {
+    WriteBatch batch = firestore.batch();
+    CollectionReference collectionReference =
+        firestore.collection(collectionName);
+    batch.set(
+      collectionReference.doc(),
+      {
+        "author": report.author,
+        "item": report.item,
+        "location": report.location,
+        "pair": report.pair,
+        "phone": report.phone,
+        "status": report.status,
+        "created": FieldValue.serverTimestamp(),
+      },
+    );
+
+    batch.commit();
   }
 }
