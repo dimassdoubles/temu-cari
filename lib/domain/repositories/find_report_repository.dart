@@ -4,6 +4,6 @@ import 'package:temu_cari/domain/entities/find_report.dart';
 import '../../shared/errors/failures.dart';
 
 abstract class FindReportRepository {
-  Future<Either<Failure, List<FindReport>>> getReport();
+  Future<Either<Failure, List<FindReport>>> getReport(String author);
   Future<Either<Failure, void>> pushReport(FindReport report);
 }

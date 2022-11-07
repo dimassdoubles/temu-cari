@@ -12,9 +12,9 @@ class FindReportRepositoryImpl extends FindReportRepository {
   FindReportRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<Either<Failure, List<FindReport>>> getReport() async {
+  Future<Either<Failure, List<FindReport>>> getReport(String author) async {
     try {
-      final result = await remoteDataSource.getReport();
+      final result = await remoteDataSource.getReport(author);
       return Right(result);
     } on FirebaseGetReportException {
       return Left(FirebaseFailure());

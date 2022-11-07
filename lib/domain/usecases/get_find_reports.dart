@@ -8,7 +8,7 @@ class GetFindReports {
   FindReportRepository repository;
   GetFindReports({required this.repository});
 
-  Future<Either<Failure, List<FindReport>>> call() async {
-    return await repository.getReport();
+  Future<Either<Failure, List<FindReport>>> call(String author) async {
+    return await repository.getReport(author);
   }
 }

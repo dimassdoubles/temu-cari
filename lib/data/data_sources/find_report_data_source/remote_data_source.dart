@@ -4,7 +4,7 @@ import 'package:temu_cari/domain/entities/find_report.dart';
 import '../../../shared/errors/exceptions.dart';
 
 abstract class FindReportRemoteDataSource {
-  Future<List<FindReport>> getReport();
+  Future<List<FindReport>> getReport(String author);
   Future<void> pushReport(FindReport report);
 }
 
@@ -16,11 +16,19 @@ class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
   FirebaseFindReportDataSource(this.firestore);
 
   @override
-  Future<List<FindReport>> getReport() async {
+  Future<List<FindReport>> getReport(String author) async {
     try {
-      final result = await firestore.collection(collectionName).get();
+      final query = await firestore
+          .collection(collectionName)
+          .where("author", isEqualTo: author)
+          .get();
 
-      final listReport = result.docs
+      final queryPair = await firestore
+          .collection(collectionName)
+          .where("pair", isEqualTo: author)
+          .get();
+
+      final listReport = query.docs
           .map(
             (e) => FindReport(
               id: e.id,
@@ -34,7 +42,24 @@ class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
           )
           .toList();
 
-      return listReport;
+      final listPairReport = queryPair.docs
+          .map(
+            (e) => FindReport(
+              id: e.id,
+              author: e.get("author"),
+              location: e.get("location"),
+              phone: e.get("phone"),
+              item: e.get("item"),
+              pair: e.get("pair"),
+              status: e.get("status"),
+            ),
+          )
+          .toList();
+      // final result = [...listReport, ...listPairReport];
+      // for (int i = 0; i < result.length; i++) {
+      //   print(result[i].item);
+      // }
+      return [...listReport, ...listPairReport];
     } catch (error) {
       throw FirebaseGetReportException();
     }
