@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:temu_cari/domain/entities/find_report.dart';
-import 'package:temu_cari/domain/usecases/push_find_report.dart';
-import 'package:temu_cari/presentation/blocs/auth_bloc/auth_bloc.dart';
-import 'package:temu_cari/presentation/blocs/auth_bloc/auth_state.dart';
-import 'package:temu_cari/shared/routes.dart';
-import 'package:temu_cari/shared/styles/colors.dart';
+import '../../domain/entities/find_report.dart';
+import '../../domain/usecases/push_find_report.dart';
+import '../blocs/auth_bloc/auth_bloc.dart';
+import '../blocs/auth_bloc/auth_state.dart';
+import '../blocs/report_bloc/report_bloc.dart';
+import '../blocs/report_bloc/report_event.dart';
+import '../../shared/routes.dart';
+import '../../shared/styles/colors.dart';
 
 import '../../injection_container.dart';
 
@@ -92,53 +94,56 @@ class _FinderFormPageState extends State<FinderFormPage> {
                       height: 64,
                     ),
                     ElevatedButton(
-                        onPressed: () {
-                          final item = _textItemController.text;
-                          final location = _textLocationController.text;
-                          final phone = _textPhoneController.text;
+                      onPressed: () {
+                        final item = _textItemController.text;
+                        final location = _textLocationController.text;
+                        final phone = _textPhoneController.text;
 
-                          if (item != "" && location != "" && phone != "") {
-                            FindReport newReport = FindReport(
-                              author: state.user.id,
-                              location: location,
-                              phone: phone,
-                              item: item,
-                              status: "proses",
-                            );
-                            final pushFindReport = getIt<PushFindReport>();
-                            pushFindReport(newReport);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Laporan anda telah disimpan'),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
-                            Navigator.pushReplacementNamed(context, homePage);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Formulir tidak boleh kosong'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: purple,
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
+                        if (item != "" && location != "" && phone != "") {
+                          FindReport newReport = FindReport(
+                            author: state.user.id,
+                            location: location,
+                            phone: phone,
+                            item: item,
+                            status: "proses",
+                          );
+                          final pushFindReport = getIt<PushFindReport>();
+                          pushFindReport(newReport);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Laporan anda telah disimpan'),
+                              backgroundColor: Colors.green,
+                            ),
+                          );
+                          getIt<ReportBloc>().add(GetReport(state.user.id));
+
+                          Navigator.pushReplacementNamed(context, homePage);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('Formulir tidak boleh kosong'),
+                              backgroundColor: Colors.red,
+                            ),
+                          );
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: purple,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                      ),
+                      child: const SizedBox(
+                        width: double.infinity,
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16),
+                            child: Text('Submit'),
                           ),
                         ),
-                        child: const SizedBox(
-                          width: double.infinity,
-                          child: Center(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(vertical: 16),
-                              child: Text('Submit'),
-                            ),
-                          ),
-                        )),
+                      ),
+                    ),
                   ],
                 ),
               ),

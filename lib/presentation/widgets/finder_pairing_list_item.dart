@@ -1,9 +1,17 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:temu_cari/domain/entities/find_report.dart';
+import 'package:temu_cari/domain/entities/seek_report.dart';
 
 import '../../shared/styles/colors.dart';
 
 class FinderPairingListItem extends StatefulWidget {
-  const FinderPairingListItem({
+  FindReport report;
+  SeekReport pairReport;
+  FinderPairingListItem({
+    required this.report,
+    required this.pairReport,
     Key? key,
   }) : super(key: key);
 
@@ -39,8 +47,8 @@ class _FinderPairingListItemState extends State<FinderPairingListItem> {
                 _optionOn = false;
               });
             },
-            title: const Text(
-              'Penemuan : Uang 50k',
+            title: Text(
+              'Penemuan : ${widget.pairReport.item}',
               maxLines: 1,
             ),
             subtitle: Row(
@@ -53,7 +61,7 @@ class _FinderPairingListItemState extends State<FinderPairingListItem> {
                 const SizedBox(
                   width: 4,
                 ),
-                const Text('Sekitar kantin Fisip'),
+                Text(widget.pairReport.location),
               ],
             ),
             trailing: _optionOn

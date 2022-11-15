@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:temu_cari/domain/entities/find_report.dart';
+import '../../../domain/entities/find_report.dart';
 
 import '../../../shared/errors/exceptions.dart';
 
 abstract class FindReportRemoteDataSource {
-  Future<List<FindReport>> getReport(String author);
+  Future<List<FindReport>> getReport();
   Future<void> pushReport(FindReport report);
 }
 
@@ -16,19 +16,11 @@ class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
   FirebaseFindReportDataSource(this.firestore);
 
   @override
-  Future<List<FindReport>> getReport(String author) async {
+  Future<List<FindReport>> getReport() async {
     try {
-      final query = await firestore
-          .collection(collectionName)
-          .where("author", isEqualTo: author)
-          .get();
+      final result = await firestore.collection(collectionName).get();
 
-      final queryPair = await firestore
-          .collection(collectionName)
-          .where("pair", isEqualTo: author)
-          .get();
-
-      final listReport = query.docs
+      final listReport = result.docs
           .map(
             (e) => FindReport(
               id: e.id,
@@ -42,24 +34,7 @@ class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
           )
           .toList();
 
-      final listPairReport = queryPair.docs
-          .map(
-            (e) => FindReport(
-              id: e.id,
-              author: e.get("author"),
-              location: e.get("location"),
-              phone: e.get("phone"),
-              item: e.get("item"),
-              pair: e.get("pair"),
-              status: e.get("status"),
-            ),
-          )
-          .toList();
-      // final result = [...listReport, ...listPairReport];
-      // for (int i = 0; i < result.length; i++) {
-      //   print(result[i].item);
-      // }
-      return [...listReport, ...listPairReport];
+      return listReport;
     } catch (error) {
       throw FirebaseGetReportException();
     }

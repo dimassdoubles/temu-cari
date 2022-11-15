@@ -1,8 +1,8 @@
-import 'package:temu_cari/domain/entities/seek_report.dart';
+import '../../domain/entities/seek_report.dart';
 import 'package:dartz/dartz.dart';
-import 'package:temu_cari/domain/repositories/seek_report_repository.dart';
-import 'package:temu_cari/shared/errors/exceptions.dart';
-import 'package:temu_cari/shared/errors/failures.dart';
+import '../../domain/repositories/seek_report_repository.dart';
+import '../../shared/errors/exceptions.dart';
+import '../../shared/errors/failures.dart';
 
 import '../data_sources/seek_report_data_source/remote_data_source.dart';
 

@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:temu_cari/domain/entities/user.dart';
-import 'package:temu_cari/shared/errors/exceptions.dart';
+import '../../../domain/entities/user.dart';
+import '../../../shared/errors/exceptions.dart';
 
 abstract class UserRemoteDataSource {
   signInWithGoogle();

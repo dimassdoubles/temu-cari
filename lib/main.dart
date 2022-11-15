@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:temu_cari/injection_container.dart';
-import 'package:temu_cari/presentation/blocs/auth_bloc/auth_bloc.dart';
-import 'package:temu_cari/presentation/blocs/auth_bloc/auth_event.dart';
 
+import 'injection_container.dart';
+import 'presentation/blocs/auth_bloc/auth_bloc.dart';
+import 'presentation/blocs/auth_bloc/auth_event.dart';
 import 'shared/routes.dart' as route;
 
 void main() async {

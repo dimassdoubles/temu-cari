@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:temu_cari/injection_container.dart';
-import 'package:temu_cari/presentation/blocs/auth_bloc/auth_bloc.dart';
-import 'package:temu_cari/presentation/blocs/auth_bloc/auth_event.dart';
-import 'package:temu_cari/presentation/blocs/auth_bloc/auth_state.dart';
-import 'package:temu_cari/shared/routes.dart';
+import '../../injection_container.dart';
+import '../blocs/auth_bloc/auth_bloc.dart';
+import '../blocs/auth_bloc/auth_event.dart';
+import '../blocs/auth_bloc/auth_state.dart';
+import '../../shared/routes.dart';
 
 import '../../shared/styles/colors.dart';
 import '../../shared/styles/text_styles.dart';

@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:temu_cari/domain/entities/user.dart';
-import 'package:temu_cari/shared/errors/failures.dart';
+import '../entities/user.dart';
+import '../../shared/errors/failures.dart';
 
 abstract class UserRepository {
   signInWithGoogle();

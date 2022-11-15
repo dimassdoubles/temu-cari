@@ -21,9 +21,6 @@ class TabBarTitle extends StatelessWidget {
         unselectedLabelStyle: TextStyle(fontWeight: regular),
         tabs: const [
           Tab(
-            text: "Submit",
-          ),
-          Tab(
             text: "Proses",
           ),
           Tab(

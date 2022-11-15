@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:temu_cari/domain/entities/seek_report.dart';
+import '../../../domain/entities/seek_report.dart';
 
 import '../../../shared/errors/exceptions.dart';
 

@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:temu_cari/domain/repositories/sign_out.dart';
-import 'package:temu_cari/domain/usecases/get_user_logged_in.dart';
-import 'package:temu_cari/domain/usecases/is_sign_in.dart';
-import 'package:temu_cari/domain/usecases/sign_in_with_google.dart';
-import 'package:temu_cari/presentation/blocs/auth_bloc/auth_event.dart';
-import 'package:temu_cari/presentation/blocs/auth_bloc/auth_state.dart';
+import '../../../domain/repositories/sign_out.dart';
+import '../../../domain/usecases/get_user_logged_in.dart';
+import '../../../domain/usecases/is_sign_in.dart';
+import '../../../domain/usecases/sign_in_with_google.dart';
+import 'auth_event.dart';
+import 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SignInWithGoogle _signInWithGoogle;

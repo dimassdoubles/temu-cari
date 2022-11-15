@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:temu_cari/presentation/pages/finder_form_page.dart';
-import 'package:temu_cari/presentation/pages/seeker_form_page.dart';
+import '../presentation/pages/finder_form_page.dart';
+import '../presentation/pages/seeker_form_page.dart';
 import '../presentation/pages/home_page.dart';
 import '../presentation/pages/login_page.dart';
 

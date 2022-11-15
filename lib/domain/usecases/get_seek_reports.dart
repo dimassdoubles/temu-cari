@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:temu_cari/domain/entities/seek_report.dart';
-import 'package:temu_cari/domain/repositories/seek_report_repository.dart';
+import '../entities/seek_report.dart';
+import '../repositories/seek_report_repository.dart';
 
 import '../../shared/errors/failures.dart';
 

@@ -4,7 +4,7 @@ class FirebaseUser extends Equatable {
   final String _id;
   final String? _name;
 
-  const FirebaseUser({required String id, required String? name})
+  const FirebaseUser({required String id,  name})
       : _id = id,
         _name = name;
 

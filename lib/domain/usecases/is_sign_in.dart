@@ -1,4 +1,4 @@
-import 'package:temu_cari/domain/repositories/user_repository.dart';
+import '../repositories/user_repository.dart';
 
 class IsSignIn {
   UserRepository repository;

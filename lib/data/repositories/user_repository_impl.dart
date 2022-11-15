@@ -1,9 +1,9 @@
-import 'package:temu_cari/data/data_sources/user_data_source.dart/remote_data_source.dart';
-import 'package:temu_cari/domain/entities/user.dart';
+import '../data_sources/user_data_source.dart/remote_data_source.dart';
+import '../../domain/entities/user.dart';
 import 'package:dartz/dartz.dart';
-import 'package:temu_cari/domain/repositories/user_repository.dart';
-import 'package:temu_cari/shared/errors/exceptions.dart';
-import 'package:temu_cari/shared/errors/failures.dart';
+import '../../domain/repositories/user_repository.dart';
+import '../../shared/errors/exceptions.dart';
+import '../../shared/errors/failures.dart';
 
 class UserRepositoryImpl extends UserRepository {
   final UserRemoteDataSource remoteDataSource;

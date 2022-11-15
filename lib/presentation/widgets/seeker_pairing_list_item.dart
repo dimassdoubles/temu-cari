@@ -1,7 +1,15 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
+import 'package:temu_cari/domain/entities/find_report.dart';
+import 'package:temu_cari/domain/entities/seek_report.dart';
 
 class SeekerPairingListItem extends StatelessWidget {
-  const SeekerPairingListItem({
+  SeekReport report;
+  FindReport pairReport;
+  SeekerPairingListItem({
+    required this.report,
+    required this.pairReport,
     Key? key,
   }) : super(key: key);
 
@@ -22,7 +30,7 @@ class SeekerPairingListItem extends StatelessWidget {
         ],
       ),
       child: ListTile(
-        title: const Text('Penemuan : Uang 50k'),
+        title: Text('Pencarian : ${report.item}'),
         subtitle: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
@@ -33,15 +41,12 @@ class SeekerPairingListItem extends StatelessWidget {
             const SizedBox(
               width: 4,
             ),
-            const Text('Sekitar kantin Fisip'),
+            Text(report.location),
           ],
         ),
         trailing: IconButton(
           icon: Image.asset('assets/wa-icon.png'),
-          onPressed: () {
-            // ignore: avoid_print
-            print("Click Wa");
-          },
+          onPressed: () {},
         ),
       ),
     );
