@@ -12,7 +12,7 @@ class FindReport extends Equatable {
     required String item,
     String id = "",
     String pair = "",
-    this.status = "submit",
+    this.status = "process",
   })  : _id = id,
         _author = author,
         _item = item,
