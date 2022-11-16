@@ -4,6 +4,7 @@ import '../../../domain/usecases/search_pair_report.dart';
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../blocs/auth_bloc/auth_state.dart';
 import '../../blocs/report_bloc/report_bloc.dart';
+import '../../blocs/report_bloc/report_event.dart';
 import '../../blocs/report_bloc/report_state.dart';
 
 import '../../../domain/entities/seek_report.dart';
@@ -44,26 +45,35 @@ class PairingScreen extends StatelessWidget {
                   ...pairingSeekReports,
                   ...pairingFindReports,
                 ];
-                return ListView.builder(
-                    itemCount: listReport.length,
-                    itemBuilder: (context, index) {
-                      if (listReport[index] is SeekReport) {
-                        return SeekerPairingListItem(
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    reportBloc.add(
+                      GetReport(
+                        authState.user.id,
+                      ),
+                    );
+                  },
+                  child: ListView.builder(
+                      itemCount: listReport.length,
+                      itemBuilder: (context, index) {
+                        if (listReport[index] is SeekReport) {
+                          return SeekerPairingListItem(
+                            report: listReport[index],
+                            pairReport: searchFindReport(
+                              id: listReport[index].pair,
+                              reports: state.findReports,
+                            ),
+                          );
+                        }
+                        return FinderPairingListItem(
                           report: listReport[index],
-                          pairReport: searchFindReport(
+                          pairReport: searchSeekReport(
                             id: listReport[index].pair,
-                            reports: state.findReports,
+                            reports: state.seekReports,
                           ),
                         );
-                      }
-                      return FinderPairingListItem(
-                        report: listReport[index],
-                        pairReport: searchSeekReport(
-                          id: listReport[index].pair,
-                          reports: state.seekReports,
-                        ),
-                      );
-                    });
+                      }),
+                );
               } else {
                 return Center(
                   child: SizedBox(

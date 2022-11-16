@@ -1,16 +1,24 @@
 import 'package:flutter/material.dart';
-import '../presentation/pages/finder_form_page.dart';
-import '../presentation/pages/seeker_form_page.dart';
-import '../presentation/pages/home_page.dart';
-import '../presentation/pages/login_page.dart';
+import 'package:temu_cari/presentation/pages/admin/home_admin_page.dart';
+
+import '../presentation/pages/user/finder_form_page.dart';
+import '../presentation/pages/user/home_page.dart';
+import '../presentation/pages/user/login_page.dart';
+import '../presentation/pages/user/seeker_form_page.dart';
 
 const String loginPage = "login-page";
 const String homePage = "home-page";
 const String finderFormPage = "finder-form-page";
 const String seekerFormPage = "seeker-form-page";
 
+const String homeAdminPage = "home-admin-page";
+
 Route<dynamic> controller(RouteSettings settings) {
   switch (settings.name) {
+    case homeAdminPage:
+      return MaterialPageRoute(
+        builder: (context) => const HomeAdminPage(),
+      );
     case seekerFormPage:
       return MaterialPageRoute(
         builder: (context) => const SeekerFormPage(),

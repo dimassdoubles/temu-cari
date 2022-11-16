@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../injection_container.dart';
-import '../blocs/auth_bloc/auth_bloc.dart';
-import '../blocs/auth_bloc/auth_state.dart';
-import '../blocs/report_bloc/report_bloc.dart';
-import '../blocs/report_bloc/report_event.dart';
-import '../widgets/screens/success_screen.dart';
-import '../../shared/routes.dart';
-import '../../shared/styles/colors.dart';
-import '../../shared/styles/text_styles.dart';
-import '../widgets/header.dart';
-import '../widgets/screens/pairing_screen.dart';
-import '../widgets/screens/process_screen.dart';
-import '../widgets/tab_bar_title.dart';
+
+import '../../../injection_container.dart';
+import '../../../shared/routes.dart';
+import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/text_styles.dart';
+import '../../blocs/auth_bloc/auth_bloc.dart';
+import '../../blocs/auth_bloc/auth_state.dart';
+import '../../blocs/report_bloc/report_bloc.dart';
+import '../../blocs/report_bloc/report_event.dart';
+import '../../widgets/header.dart';
+import '../../widgets/screens/pairing_screen.dart';
+import '../../widgets/screens/process_screen.dart';
+import '../../widgets/screens/success_screen.dart';
+import '../../widgets/tab_bar_title.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -44,12 +45,17 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: Text(
-                    'Laporan Anda',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: bold,
-                      color: darkGrey,
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, homeAdminPage);
+                    },
+                    child: Text(
+                      'Laporan Anda',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: bold,
+                        color: darkGrey,
+                      ),
                     ),
                   ),
                 ),

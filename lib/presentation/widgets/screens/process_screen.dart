@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:temu_cari/presentation/blocs/report_bloc/report_event.dart';
 import '../../../domain/entities/find_report.dart';
 import '../../../injection_container.dart';
 import '../../blocs/auth_bloc/auth_bloc.dart';
@@ -45,18 +46,27 @@ class ProcessScreen extends StatelessWidget {
                   ...seekReports,
                   ...findReports,
                 ];
-                return ListView.builder(
-                  itemCount: reports.length,
-                  itemBuilder: (context, index) {
-                    if (reports[index] is FindReport) {
-                      return BaseListItem(
-                        findReport: reports[index],
-                      );
-                    }
-                    return BaseListItem(
-                      seekReport: reports[index],
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    reportBloc.add(
+                      GetReport(
+                        authState.user.id,
+                      ),
                     );
                   },
+                  child: ListView.builder(
+                    itemCount: reports.length,
+                    itemBuilder: (context, index) {
+                      if (reports[index] is FindReport) {
+                        return BaseListItem(
+                          findReport: reports[index],
+                        );
+                      }
+                      return BaseListItem(
+                        seekReport: reports[index],
+                      );
+                    },
+                  ),
                 );
               } else {
                 return Center(

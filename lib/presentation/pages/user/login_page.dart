@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../injection_container.dart';
-import '../blocs/auth_bloc/auth_bloc.dart';
-import '../blocs/auth_bloc/auth_event.dart';
-import '../blocs/auth_bloc/auth_state.dart';
-import '../../shared/routes.dart';
-import '../../shared/styles/colors.dart';
 
-import '../../shared/styles/text_styles.dart';
+import '../../../injection_container.dart';
+import '../../../shared/routes.dart';
+import '../../../shared/styles/colors.dart';
+import '../../../shared/styles/text_styles.dart';
+import '../../blocs/auth_bloc/auth_bloc.dart';
+import '../../blocs/auth_bloc/auth_event.dart';
+import '../../blocs/auth_bloc/auth_state.dart';
+
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../blocs/auth_bloc/auth_bloc.dart';
-import '../blocs/auth_bloc/auth_state.dart';
-import '../../shared/routes.dart';
 
-import '../../domain/entities/seek_report.dart';
-import '../../domain/usecases/push_seek_report.dart';
-import '../../injection_container.dart';
-import '../../shared/styles/colors.dart';
-import '../blocs/report_bloc/report_bloc.dart';
-import '../blocs/report_bloc/report_event.dart';
+import '../../../domain/entities/seek_report.dart';
+import '../../../domain/usecases/push_seek_report.dart';
+import '../../../injection_container.dart';
+import '../../../shared/routes.dart';
+import '../../../shared/styles/colors.dart';
+import '../../blocs/auth_bloc/auth_bloc.dart';
+import '../../blocs/auth_bloc/auth_state.dart';
+import '../../blocs/report_bloc/report_bloc.dart';
+import '../../blocs/report_bloc/report_event.dart';
 
 class SeekerFormPage extends StatefulWidget {
   const SeekerFormPage({super.key});
@@ -108,7 +108,7 @@ class _SeekerFormPageState extends State<SeekerFormPage> {
                               location: location,
                               characteristic: characteristic,
                               item: item,
-                              status: "proses",
+                              status: "process",
                             );
                             final pushFindReport = getIt<PushSeekReport>();
                             pushFindReport(newReport);

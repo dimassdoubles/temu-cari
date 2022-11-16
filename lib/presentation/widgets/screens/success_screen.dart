@@ -7,6 +7,7 @@ import '../../../shared/styles/colors.dart';
 import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../blocs/auth_bloc/auth_state.dart';
 import '../../blocs/report_bloc/report_bloc.dart';
+import '../../blocs/report_bloc/report_event.dart';
 import '../../blocs/report_bloc/report_state.dart';
 import '../base_list_item.dart';
 
@@ -45,18 +46,27 @@ class SuccessScreen extends StatelessWidget {
                   ...seekReports,
                   ...findReports,
                 ];
-                return ListView.builder(
-                  itemCount: reports.length,
-                  itemBuilder: (context, index) {
-                    if (reports[index] is FindReport) {
-                      return BaseListItem(
-                        findReport: reports[index],
-                      );
-                    }
-                    return BaseListItem(
-                      seekReport: reports[index],
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    reportBloc.add(
+                      GetReport(
+                        authState.user.id,
+                      ),
                     );
                   },
+                  child: ListView.builder(
+                    itemCount: reports.length,
+                    itemBuilder: (context, index) {
+                      if (reports[index] is FindReport) {
+                        return BaseListItem(
+                          findReport: reports[index],
+                        );
+                      }
+                      return BaseListItem(
+                        seekReport: reports[index],
+                      );
+                    },
+                  ),
                 );
               } else {
                 return Center(

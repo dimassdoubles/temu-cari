@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../../domain/entities/find_report.dart';
 
+import '../../../domain/entities/find_report.dart';
 import '../../../shared/errors/exceptions.dart';
 
 abstract class FindReportRemoteDataSource {

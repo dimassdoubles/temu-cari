@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../domain/entities/find_report.dart';
-import '../../domain/usecases/push_find_report.dart';
-import '../blocs/auth_bloc/auth_bloc.dart';
-import '../blocs/auth_bloc/auth_state.dart';
-import '../blocs/report_bloc/report_bloc.dart';
-import '../blocs/report_bloc/report_event.dart';
-import '../../shared/routes.dart';
-import '../../shared/styles/colors.dart';
 
-import '../../injection_container.dart';
+import '../../../domain/entities/find_report.dart';
+import '../../../domain/usecases/push_find_report.dart';
+import '../../../injection_container.dart';
+import '../../../shared/routes.dart';
+import '../../../shared/styles/colors.dart';
+import '../../blocs/auth_bloc/auth_bloc.dart';
+import '../../blocs/auth_bloc/auth_state.dart';
+import '../../blocs/report_bloc/report_bloc.dart';
+import '../../blocs/report_bloc/report_event.dart';
+
 
 class FinderFormPage extends StatefulWidget {
   const FinderFormPage({super.key});
@@ -66,7 +67,7 @@ class _FinderFormPageState extends State<FinderFormPage> {
                       controller: _textPhoneController,
                       keyboardType: TextInputType.phone,
                       decoration: const InputDecoration(
-                        hintText: 'Nomor whatsapp yang bisa dihubungi',
+                        hintText: 'Nomor whatsapp (628123456789)',
                       ),
                     ),
                     const SizedBox(
@@ -105,7 +106,7 @@ class _FinderFormPageState extends State<FinderFormPage> {
                             location: location,
                             phone: phone,
                             item: item,
-                            status: "proses",
+                            status: "process",
                           );
                           final pushFindReport = getIt<PushFindReport>();
                           pushFindReport(newReport);

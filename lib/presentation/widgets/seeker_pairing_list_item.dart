@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:temu_cari/domain/entities/find_report.dart';
 import 'package:temu_cari/domain/entities/seek_report.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SeekerPairingListItem extends StatelessWidget {
   SeekReport report;
@@ -46,7 +47,16 @@ class SeekerPairingListItem extends StatelessWidget {
         ),
         trailing: IconButton(
           icon: Image.asset('assets/wa-icon.png'),
-          onPressed: () {},
+          onPressed: () async {
+            Uri url = Uri.parse(
+                "https://wa.me/6287836670386?text=Hallo, Saya telah kehilangan ${report.item}, apakah anda menemukannya ?");
+            if (!await launchUrl(
+              url,
+              mode: LaunchMode.externalApplication,
+            )) {
+              throw 'Could not launch $url';
+            }
+          },
         ),
       ),
     );

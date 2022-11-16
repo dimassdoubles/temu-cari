@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+
 import '../../../domain/entities/find_report.dart';
 import '../../../domain/entities/seek_report.dart';
 
