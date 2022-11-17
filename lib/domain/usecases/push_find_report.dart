@@ -1,7 +1,8 @@
 import 'package:dartz/dartz.dart';
+
+import '../../shared/errors/failures.dart';
 import '../entities/find_report.dart';
 import '../repositories/find_report_repository.dart';
-import '../../shared/errors/failures.dart';
 
 class PushFindReport {
   FindReportRepository repository;

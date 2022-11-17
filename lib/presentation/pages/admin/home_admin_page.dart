@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:temu_cari/injection_container.dart';
-import 'package:temu_cari/presentation/blocs/auth_bloc/auth_bloc.dart';
-import 'package:temu_cari/presentation/blocs/auth_bloc/auth_state.dart';
-import 'package:temu_cari/presentation/blocs/report_bloc/report_bloc.dart';
-import 'package:temu_cari/presentation/blocs/report_bloc/report_state.dart';
-import 'package:temu_cari/presentation/pages/admin/detail_report_page.dart';
+import '../../../injection_container.dart';
+import '../../blocs/auth_bloc/auth_bloc.dart';
+import '../../blocs/auth_bloc/auth_state.dart';
+import '../../blocs/report_bloc/report_bloc.dart';
+import '../../blocs/report_bloc/report_event.dart';
+import '../../blocs/report_bloc/report_state.dart';
+import 'detail_report_page.dart';
 
+import '../../../shared/routes.dart';
 import '../../../shared/styles/colors.dart';
+import '../../blocs/auth_bloc/auth_event.dart';
 
 class HomeAdminPage extends StatelessWidget {
   const HomeAdminPage({super.key});
@@ -19,12 +22,28 @@ class HomeAdminPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Laporan Pencarian'),
+        backgroundColor: purple,
         elevation: 0,
+        actions: [
+          IconButton(
+            onPressed: () {
+              authBloc.add(LoggedOut());
+            },
+            icon: const Icon(
+              Icons.logout_rounded,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
-      body: BlocBuilder(
+      body: BlocConsumer(
+        listener: (context, state) => (state is Authenticated)
+            ? null
+            : Navigator.pushReplacementNamed(context, loginPage),
         bloc: authBloc,
         builder: (context, authState) {
           if (authState is Authenticated) {
+            reportBloc.add(GetReport(authState.user.id));
             return BlocBuilder(
               bloc: reportBloc,
               builder: (context, state) {
@@ -34,23 +53,29 @@ class HomeAdminPage extends StatelessWidget {
                         (element) => element.status == "process",
                       )
                       .toList();
-                  return ListView.builder(
-                    itemCount: reports.length,
-                    itemBuilder: (context, index) => Card(
-                      child: ListTile(
-                        onTap: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => SeekReportDetailPage(
-                              report: reports[index],
+                  return RefreshIndicator(
+                    color: purple,
+                    onRefresh: () async {
+                      reportBloc.add(GetReport(authState.user.id));
+                    },
+                    child: ListView.builder(
+                      itemCount: reports.length,
+                      itemBuilder: (context, index) => Card(
+                        child: ListTile(
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SeekReportDetailPage(
+                                report: reports[index],
+                              ),
                             ),
                           ),
+                          title: Text(reports[index].item),
                         ),
-                        title: Text(reports[index].item),
                       ),
                     ),
                   );
-                } else {
+                } else if (state is Loading) {
                   return Center(
                     child: SizedBox(
                       width: 24,
@@ -59,6 +84,10 @@ class HomeAdminPage extends StatelessWidget {
                         color: purple,
                       ),
                     ),
+                  );
+                } else {
+                  return const Center(
+                    child: Text("Error :("),
                   );
                 }
               },

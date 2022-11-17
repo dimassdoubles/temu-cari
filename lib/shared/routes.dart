@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:temu_cari/presentation/pages/admin/home_admin_page.dart';
+import '../presentation/pages/admin/home_admin_page.dart';
 
 import '../presentation/pages/user/finder_form_page.dart';
 import '../presentation/pages/user/home_page.dart';

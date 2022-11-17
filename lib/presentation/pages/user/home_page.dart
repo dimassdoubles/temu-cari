@@ -45,17 +45,12 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 32),
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, homeAdminPage);
-                    },
-                    child: Text(
-                      'Laporan Anda',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: bold,
-                        color: darkGrey,
-                      ),
+                  child: Text(
+                    'Laporan Anda',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: bold,
+                      color: darkGrey,
                     ),
                   ),
                 ),

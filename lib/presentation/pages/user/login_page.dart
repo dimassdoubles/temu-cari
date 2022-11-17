@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../../shared/constants/admin.dart';
 
 import '../../../injection_container.dart';
 import '../../../shared/routes.dart';
@@ -10,7 +11,6 @@ import '../../blocs/auth_bloc/auth_bloc.dart';
 import '../../blocs/auth_bloc/auth_event.dart';
 import '../../blocs/auth_bloc/auth_state.dart';
 
-
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -19,9 +19,15 @@ class LoginPage extends StatelessWidget {
     final AuthBloc authBloc = getIt<AuthBloc>();
     return BlocListener(
       bloc: authBloc,
-      listener: (context, state) => (state is Authenticated)
-          ? Navigator.pushReplacementNamed(context, homePage)
-          : null,
+      listener: (context, state) {
+        if (state is Authenticated) {
+          if (admins.contains(state.user.email)) {
+            Navigator.pushReplacementNamed(context, homeAdminPage);
+          } else {
+            Navigator.pushReplacementNamed(context, homePage);
+          }
+        }
+      },
       child: Scaffold(
         backgroundColor: purple,
         body: Padding(

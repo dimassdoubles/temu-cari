@@ -27,6 +27,7 @@ class FirebaseUserDataSource extends UserRemoteDataSource {
       return Future.value(FirebaseUser(
         id: currentUser!.uid,
         name: currentUser.displayName,
+        email: currentUser.email,
       ));
     } catch (error) {
       throw (FirebaseGetUserException());

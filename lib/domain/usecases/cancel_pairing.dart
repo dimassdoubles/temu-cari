@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../entities/find_report.dart';
 import '../entities/seek_report.dart';
 
-Future<void> attachReport({
+Future<void> cancelPairing({
   required SeekReport seekReport,
   required FindReport findReport,
 }) async {
   // new status
-  const String newStatus = "pairing";
+  const String newStatus = "process";
 
   // update seek report
   CollectionReference seekReports = FirebaseFirestore.instance.collection(
@@ -15,7 +15,7 @@ Future<void> attachReport({
   );
   await seekReports.doc(seekReport.id).update(
     {
-      "pair": findReport.id,
+      "pair": "",
       "status": newStatus,
     },
   );
@@ -26,7 +26,7 @@ Future<void> attachReport({
   );
   await findReports.doc(findReport.id).update(
     {
-      "pair": seekReport.id,
+      "pair": "",
       "status": newStatus,
     },
   );

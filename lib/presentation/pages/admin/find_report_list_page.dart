@@ -24,6 +24,7 @@ class FindReportListPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Laporan Penemuan'),
         elevation: 0,
+        backgroundColor: purple,
       ),
       body: BlocBuilder(
         bloc: authBloc,
