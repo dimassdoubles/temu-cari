@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:temu_cari/domain/usecases/pick_image.dart';
 
 import '../../../domain/entities/seek_report.dart';
 import '../../../domain/usecases/push_seek_report.dart';
@@ -23,6 +27,9 @@ class _SeekerFormPageState extends State<SeekerFormPage> {
   final TextEditingController _textLocationController = TextEditingController();
   final TextEditingController _textCharacteristicController =
       TextEditingController();
+  final authBloc = getIt<AuthBloc>();
+
+  XFile? imagePicked;
 
   @override
   void dispose() {
@@ -34,7 +41,6 @@ class _SeekerFormPageState extends State<SeekerFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    final authBloc = getIt<AuthBloc>();
     return BlocConsumer(
       bloc: authBloc,
       listener: (context, state) => (state is Authenticated)
@@ -49,89 +55,39 @@ class _SeekerFormPageState extends State<SeekerFormPage> {
               ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
-                child: Column(
-                  children: [
-                    TextField(
-                      controller: _textItemController,
-                      decoration: const InputDecoration(
-                        hintText: 'Barang',
-                      ),
-                    ),
-                    TextField(
-                      controller: _textLocationController,
-                      decoration: const InputDecoration(
-                        hintText: 'Lokasi kehilangan',
-                      ),
-                    ),
-                    TextField(
-                      controller: _textCharacteristicController,
-                      decoration: const InputDecoration(
-                        hintText: 'Ciri-ciri barang',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 32,
-                    ),
-                    OutlinedButton(
-                      onPressed: () {},
-                      style: OutlinedButton.styleFrom(
-                        foregroundColor: grey,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(25),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      TextField(
+                        controller: _textItemController,
+                        decoration: const InputDecoration(
+                          hintText: 'Barang',
                         ),
                       ),
-                      child: const SizedBox(
-                        width: double.infinity,
-                        child: Center(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            child: Text('Tambah Foto (Opsionial)'),
-                          ),
+                      TextField(
+                        controller: _textLocationController,
+                        decoration: const InputDecoration(
+                          hintText: 'Lokasi kehilangan',
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 64,
-                    ),
-                    ElevatedButton(
-                        onPressed: () {
-                          final item = _textItemController.text;
-                          final location = _textLocationController.text;
-                          final characteristic =
-                              _textCharacteristicController.text;
-
-                          if (item != "" &&
-                              location != "" &&
-                              characteristic != "") {
-                            SeekReport newReport = SeekReport(
-                              author: state.user.id,
-                              location: location,
-                              characteristic: characteristic,
-                              item: item,
-                              status: "process",
-                            );
-                            final pushFindReport = getIt<PushSeekReport>();
-                            pushFindReport(newReport);
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Laporan anda telah disimpan'),
-                                backgroundColor: Colors.green,
-                              ),
-                            );
-                            getIt<ReportBloc>().add(GetReport(state.user.id));
-                            Navigator.pushReplacementNamed(context, homePage);
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Formulir tidak boleh kosong'),
-                                backgroundColor: Colors.red,
-                              ),
-                            );
-                          }
+                      TextField(
+                        controller: _textCharacteristicController,
+                        decoration: const InputDecoration(
+                          hintText: 'Ciri-ciri barang',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 32,
+                      ),
+                      OutlinedButton(
+                        onPressed: () async {
+                          final image = await pickImage(context, camera: true);
+                          setState(() {
+                            imagePicked = image;
+                          });
                         },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: purple,
-                          elevation: 0,
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: grey,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(25),
                           ),
@@ -141,11 +97,76 @@ class _SeekerFormPageState extends State<SeekerFormPage> {
                           child: Center(
                             child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 16),
-                              child: Text('Submit'),
+                              child: Text('Tambah Foto (Opsionial)'),
                             ),
                           ),
-                        )),
-                  ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      (imagePicked == null)
+                          ? const SizedBox()
+                          : Image.file(
+                              File(imagePicked!.path),
+                            ),
+                      const SizedBox(
+                        height: 64,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            final item = _textItemController.text;
+                            final location = _textLocationController.text;
+                            final characteristic =
+                                _textCharacteristicController.text;
+
+                            if (item != "" &&
+                                location != "" &&
+                                characteristic != "") {
+                              SeekReport newReport = SeekReport(
+                                author: state.user.id,
+                                location: location,
+                                characteristic: characteristic,
+                                item: item,
+                                status: "process",
+                              );
+                              final pushFindReport = getIt<PushSeekReport>();
+                              pushFindReport(newReport);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Laporan anda telah disimpan'),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+                              getIt<ReportBloc>().add(GetReport(state.user.id));
+                              Navigator.pushReplacementNamed(context, homePage);
+                            } else {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Formulir tidak boleh kosong'),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: purple,
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                          ),
+                          child: const SizedBox(
+                            width: double.infinity,
+                            child: Center(
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(vertical: 16),
+                                child: Text('Submit'),
+                              ),
+                            ),
+                          )),
+                    ],
+                  ),
                 ),
               ),
             )
