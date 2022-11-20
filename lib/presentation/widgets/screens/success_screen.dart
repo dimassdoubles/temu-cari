@@ -54,6 +54,7 @@ class SuccessScreen extends StatelessWidget {
                       ),
                     );
                   },
+                  color: purple,
                   child: ListView.builder(
                     itemCount: reports.length,
                     itemBuilder: (context, index) {

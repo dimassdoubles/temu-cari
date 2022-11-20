@@ -24,14 +24,13 @@ class PairingPage extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
                 height: 16,
               ),
               Text(
-                'Laporan Kehilangan : ${seekReport.item}',
-                textAlign: TextAlign.center,
+                'Laporan Kehilangan : \n${seekReport.item}',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
@@ -40,17 +39,31 @@ class PairingPage extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              Text(seekReport.location),
+              Text("Lokasi Kehilangan: \n${seekReport.location}"),
               const SizedBox(
                 height: 16,
               ),
-              Text(seekReport.characteristic),
+              Text("Ciri-ciri barang: \n${seekReport.characteristic}"),
+              const SizedBox(
+                height: 16,
+              ),
+              (findReport.image != "")
+                  ? AspectRatio(
+                      aspectRatio: 1,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Image.network(
+                          seekReport.image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
               const SizedBox(
                 height: 32,
               ),
               Text(
-                'Laporan Penemuan : ${findReport.item}',
-                textAlign: TextAlign.center,
+                'Laporan Penemuan : \n${findReport.item}',
                 style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
@@ -59,7 +72,22 @@ class PairingPage extends StatelessWidget {
               const SizedBox(
                 height: 16,
               ),
-              Text(findReport.location),
+              Text("Lokasi Penemuan: \n${findReport.location}"),
+              const SizedBox(
+                height: 16,
+              ),
+              (findReport.image != "")
+                  ? AspectRatio(
+                      aspectRatio: 1,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: Image.network(
+                          findReport.image,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : const SizedBox(),
               const SizedBox(
                 height: 32,
               ),
@@ -71,13 +99,22 @@ class PairingPage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: purple,
                   elevation: 0,
-                ),
-                child: const SizedBox(
-                  width: double.infinity,
-                  child: Center(
-                    child: Text('Pasangkan'),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
                   ),
                 ),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: Center(
+                      child: Text('Pasangkan'),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 64,
               ),
             ],
           ),

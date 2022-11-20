@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:temu_cari/domain/usecases/pick_image.dart';
+import 'package:temu_cari/domain/usecases/upload_image.dart';
 
 import '../../../domain/entities/find_report.dart';
 import '../../../domain/usecases/push_find_report.dart';
@@ -108,18 +109,33 @@ class _FinderFormPageState extends State<FinderFormPage> {
                       ),
                       (imagePicked == null)
                           ? const SizedBox()
-                          : Image.file(
-                              File(imagePicked!.path),
-                              width: double.infinity,
+                          : AspectRatio(
+                              aspectRatio: 1,
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: Image.file(
+                                  File(imagePicked!.path),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                       const SizedBox(
-                        height: 64,
+                        height: 32,
                       ),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           final item = _textItemController.text;
                           final location = _textLocationController.text;
                           final phone = _textPhoneController.text;
+                          String imageUrl = "";
+
+                          if (imagePicked != null) {
+                            imageUrl = await uploadImage(
+                              File(
+                                imagePicked!.path,
+                              ),
+                            );
+                          }
 
                           if (item != "" && location != "" && phone != "") {
                             FindReport newReport = FindReport(
@@ -128,6 +144,7 @@ class _FinderFormPageState extends State<FinderFormPage> {
                               phone: phone,
                               item: item,
                               status: "process",
+                              image: imageUrl,
                             );
                             final pushFindReport = getIt<PushFindReport>();
                             pushFindReport(newReport);
@@ -166,6 +183,7 @@ class _FinderFormPageState extends State<FinderFormPage> {
                           ),
                         ),
                       ),
+                      const SizedBox(height: 64),
                     ],
                   ),
                 ),

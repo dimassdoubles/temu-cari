@@ -22,6 +22,7 @@ class SeekReportDetailPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(
                   height: 16,
@@ -34,13 +35,28 @@ class SeekReportDetailPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(
-                  height: 16,
+                  height: 8,
                 ),
-                Text(report.location),
+                Text("Lokasi Kehilangan: \n${report.location}"),
                 const SizedBox(
                   height: 16,
                 ),
-                Text(report.characteristic),
+                Text("Ciri-ciri barang: \n${report.characteristic}"),
+                const SizedBox(
+                  height: 16,
+                ),
+                (report.image != "")
+                    ? AspectRatio(
+                        aspectRatio: 1,
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: Image.network(
+                            report.image,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      )
+                    : const SizedBox(),
                 const SizedBox(
                   height: 32,
                 ),
@@ -58,11 +74,17 @@ class SeekReportDetailPage extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: purple,
                     elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(25),
+                    ),
                   ),
-                  child: const SizedBox(
-                    width: double.infinity,
-                    child: Center(
-                      child: Text('Cari Pasangan'),
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: Center(
+                        child: Text('Cari Pasangan'),
+                      ),
                     ),
                   ),
                 ),

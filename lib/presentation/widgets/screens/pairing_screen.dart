@@ -53,6 +53,7 @@ class PairingScreen extends StatelessWidget {
                       ),
                     );
                   },
+                  color: purple,
                   child: ListView.builder(
                       itemCount: listReport.length,
                       itemBuilder: (context, index) {

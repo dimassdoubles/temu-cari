@@ -49,7 +49,7 @@ class SeekerPairingListItem extends StatelessWidget {
           icon: Image.asset('assets/wa-icon.png'),
           onPressed: () async {
             Uri url = Uri.parse(
-                "https://wa.me/6287836670386?text=Hallo, Saya telah kehilangan ${report.item}, apakah anda menemukannya ?");
+                "https://wa.me/${pairReport.phone}?text=Hallo, Saya telah kehilangan ${report.item}, apakah anda menemukannya ?");
             if (!await launchUrl(
               url,
               mode: LaunchMode.externalApplication,

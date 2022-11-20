@@ -20,6 +20,8 @@ class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
     try {
       final result = await firestore.collection(collectionName).get();
 
+      
+
       final listReport = result.docs
           .map(
             (e) => FindReport(
@@ -30,12 +32,14 @@ class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
               item: e.get("item"),
               pair: e.get("pair"),
               status: e.get("status"),
+              image: e.get("image"),
             ),
           )
           .toList();
 
       return listReport;
     } catch (error) {
+      print("di sini: $error");
       throw FirebaseGetReportException();
     }
   }
@@ -58,6 +62,7 @@ class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
           "phone": report.phone,
           "status": report.status,
           "created": FieldValue.serverTimestamp(),
+          "image": report.image,
         },
       );
     }
@@ -73,6 +78,7 @@ class FirebaseFindReportDataSource extends FindReportRemoteDataSource {
           "phone": report.phone,
           "status": report.status,
           "created": FieldValue.serverTimestamp(),
+          "image": report.image,
         },
       );
     }

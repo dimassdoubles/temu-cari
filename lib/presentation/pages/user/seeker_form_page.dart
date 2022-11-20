@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:temu_cari/domain/usecases/pick_image.dart';
+import 'package:temu_cari/domain/usecases/upload_image.dart';
 
 import '../../../domain/entities/seek_report.dart';
 import '../../../domain/usecases/push_seek_report.dart';
@@ -81,7 +82,7 @@ class _SeekerFormPageState extends State<SeekerFormPage> {
                       ),
                       OutlinedButton(
                         onPressed: () async {
-                          final image = await pickImage(context, camera: true);
+                          final image = await pickImage(context);
                           setState(() {
                             imagePicked = image;
                           });
@@ -107,18 +108,35 @@ class _SeekerFormPageState extends State<SeekerFormPage> {
                       ),
                       (imagePicked == null)
                           ? const SizedBox()
-                          : Image.file(
-                              File(imagePicked!.path),
+                          : AspectRatio(
+                              aspectRatio: 1,
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: Image.file(
+                                  File(imagePicked!.path),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                       const SizedBox(
-                        height: 64,
+                        height: 32,
                       ),
                       ElevatedButton(
-                          onPressed: () {
+                          onPressed: () async {
                             final item = _textItemController.text;
                             final location = _textLocationController.text;
                             final characteristic =
                                 _textCharacteristicController.text;
+
+                            String imageUrl = "";
+
+                            if (imagePicked != null) {
+                              imageUrl = await uploadImage(
+                                File(
+                                  imagePicked!.path,
+                                ),
+                              );
+                            }
 
                             if (item != "" &&
                                 location != "" &&
@@ -129,9 +147,11 @@ class _SeekerFormPageState extends State<SeekerFormPage> {
                                 characteristic: characteristic,
                                 item: item,
                                 status: "process",
+                                image: imageUrl,
                               );
                               final pushFindReport = getIt<PushSeekReport>();
                               pushFindReport(newReport);
+                              // ignore: use_build_context_synchronously
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                   content: Text('Laporan anda telah disimpan'),
@@ -165,6 +185,7 @@ class _SeekerFormPageState extends State<SeekerFormPage> {
                               ),
                             ),
                           )),
+                      const SizedBox(height: 64),
                     ],
                   ),
                 ),

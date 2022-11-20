@@ -30,12 +30,14 @@ class FirebaseSeekReportDataSource extends SeekReportRemoteDataSource {
               item: e.get("item"),
               pair: e.get("pair"),
               status: e.get("status"),
+              image: e.get("image"),
             ),
           )
           .toList();
 
       return listReport;
     } catch (error) {
+      print(error);
       throw FirebaseGetReportException();
     }
   }
@@ -58,6 +60,7 @@ class FirebaseSeekReportDataSource extends SeekReportRemoteDataSource {
           "characteristic": report.characteristic,
           "status": report.status,
           "created": FieldValue.serverTimestamp(),
+          "image": report.image,
         },
       );
     }
@@ -73,6 +76,7 @@ class FirebaseSeekReportDataSource extends SeekReportRemoteDataSource {
           "characteristic": report.characteristic,
           "status": report.status,
           "created": FieldValue.serverTimestamp(),
+          "image": report.image,
         },
       );
     }

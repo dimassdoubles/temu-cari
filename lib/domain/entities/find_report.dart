@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 // ignore: must_be_immutable
 class FindReport extends Equatable {
   final String _id, _author, _item, _location, _phone, _pair;
-  String status;
+  String status, image;
 
   FindReport({
     required String author,
@@ -13,6 +13,7 @@ class FindReport extends Equatable {
     String id = "",
     String pair = "",
     this.status = "process",
+    this.image = "",
   })  : _id = id,
         _author = author,
         _item = item,
